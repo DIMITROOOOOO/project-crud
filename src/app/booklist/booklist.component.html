@@ -1,0 +1,40 @@
+<h2>Liste des livres</h2>
+
+
+<button type="submit" id="btnValidAdd" class="btn btn-success" (click)="changeAction('add')">ajouter livre</button>
+@if (action === 'add' || action === 'edit') {
+  <app-book-add 
+    [lastId]="books.length ? books[books.length - 1].id : 0"
+    [bookToEdit]="bookToEdit"
+    (newbookcreated)="addBook($event)">
+  </app-book-add>
+}
+
+<table class="table table-striped">
+    <thead>
+
+      <tr class="table-dark">
+        <th scope="col">#</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Auteur</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Editer</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (book of books; track $index) {
+      <tr>
+        <th scope="row">{{book.id}}</th>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.price}}</td>
+        
+        <td><button class="btn btn-primary" (click)="editBookHandler(book)">Editer</button>
+        </td>
+        <td><button class="btn btn-danger"(click)="deleteBook($index)">Supprimer</button></td>
+       
+      </tr>
+    }
+    </tbody>
+</table>
